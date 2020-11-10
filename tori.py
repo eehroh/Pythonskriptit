@@ -2,15 +2,13 @@ from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import csv
 
-my_url = "https://www.tori.fi/koko_suomi?q=adidas&cg=3050&w=3&st=s&cs=2&ck=16&csz=134&ca=18&l=0&md=th"
+dest_url = "https://www.tori.fi/koko_suomi?q=jordan+1&cg=0&w=3&st=s&st=g&ca=18&l=0&md=th"
 
-uClient = uReq(my_url)
-page_html = uClient.read()
+uClient = uReq(dest_url)
+page_soup = soup(uClient.read(), "html.parser")
 uClient.close
 
-page_soup = soup(page_html, "html.parser")
-
-containers = page_soup.findAll("div", {"class":"desc"})
+containers = page_soup.findAll("div", {"class":"desc_flex"})
 
 filename = "torikengät.csv"
 f = open(filename, "w")
